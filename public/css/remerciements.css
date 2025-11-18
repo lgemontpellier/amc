@@ -47,6 +47,7 @@ p {
   padding: 12px 16px;
   border-radius: 12px;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .btn.outline {

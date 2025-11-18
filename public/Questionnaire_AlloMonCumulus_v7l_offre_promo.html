@@ -13,15 +13,14 @@
 <main>
   <p class="hint" style="margin-top:0">En fonction de vos réponses, vous recevrez votre devis par e-mail. Un technicien pourra vous contacter pour demander des précisions ou vous faire réaliser un test à distance avant l’envoi du devis.</p>
 
-  <form id="formDevis" action="https://formsubmit.co/maxime.catala@hotmail.com" method="POST" enctype="multipart/form-data" autocomplete="on" target="_blank">
+  <form id="formDevis" action="https://formsubmit.co/lumiere.gouttedeau@outlook.fr" method="POST" enctype="multipart/form-data" autocomplete="on">
     <!-- FormSubmit -->
-    <input type="hidden" name="_cc" value="allomoncumulus@outlook.fr">
+    <input type="hidden" name="_cc" value="maxime.catala@hotmail.com">
     <input type="hidden" name="_subject" value="Nouvelle demande – Allo Mon Cumulus">
     <input type="hidden" name="_template" value="table">
     <input type="hidden" name="_captcha" value="true">
-    <!-- TODO see if this is needed -->
-    <input type="hidden" name="_url" value="https://yourdomain.co/contact.html">
-    <input type="hidden" name="_next" value="remerciements.html">
+    <input type="hidden" name="_next" value="https://lgemontpellier.github.io/amc/public/remerciements.html">
+    <input type="hidden" name="_url" value="https://lgemontpellier.github.io/amc/public/Questionnaire_AlloMonCumulus_v7l_offre_promo.html">
     <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
     <!-- Security: Rate limiting and submission throttling -->
     <input type="hidden" name="_form_timestamp" id="formTimestamp" value="">
@@ -147,7 +146,7 @@
     <!-- Photo 1 -->
     <label for="photo1">📷 Photo 1 — Vue d'ensemble de l'installation</label>
     <div class="example-inline">
-      <input type="file" name="fichier_installation" id="photo1" accept="image/*">
+      <input type="file" name="photo1" id="photo1" accept="image/*">
       <img src="images/chaudiere.png" alt="Chaudière">
     </div>
     <div class="hint">J'ai besoin de voir le ballon dans son environnement : est-il dans un placard, suspendu, difficile d’accès ? Vous pouvez aussi donner des précisions par écrit.</div>
@@ -157,7 +156,7 @@
     <!-- Photo 2 -->
     <label for="photo2">📷 Photo 2 — Plaque signalétique du chauffe-eau</label>
     <div class="example-inline">
-      <input type="file" name="fichier_plaque" id="photo2" accept="image/*">
+      <input type="file" name="photo2" id="photo2" accept="image/*">
       <img src="images/plaque.png" alt="Exemple plaque">
     </div>
     <div class="hint">La plaque signalétique est une étiquette située le plus souvent sur le dessous ou sur le côté du ballon. Essayez de faire une photo lisible.</div>
@@ -165,7 +164,7 @@
     <!-- Photo 3 -->
     <label for="photo3">📷 Photo 3 — Tableau électrique</label>
     <div class="example-inline">
-      <input type="file" name="fichier_tableau" id="photo3" accept="image/*">
+      <input type="file" name="photo3" id="photo3" accept="image/*">
       <img src="images/compteur.png" alt="Exemple tableau électrique">
     </div>
 <p class="hint" style="background:#f4f7ff;border:1px dashed #cfe0ff;padding:10px;border-radius:10px;margin-top:10px">
