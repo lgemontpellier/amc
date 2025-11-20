@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://lgemontpellier.fr/sitemap.xml
+
+# Pages à ne pas indexer
+Disallow: /remerciements.html
+
