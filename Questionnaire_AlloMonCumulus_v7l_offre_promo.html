@@ -50,22 +50,24 @@
   <link rel="stylesheet" href="css/questionnaire.css">
 </head>
 <body>
-<header style="background:#0a356a;color:#fff;padding:18px 20px;text-align:center">
-  <img src="images/allo-mon-cumulus.jpg" alt="Allo Mon Cumulus" style="height:260px;width:auto;display:block;margin:0 auto;">
-</header>
+  <header class="form-header">
+    <div class="form-header-content">
+      <img src="images/allo-mon-cumulus.jpg" alt="Allo Mon Cumulus" class="form-header-logo">
+    </div>
+  </header>
 
-<main>
-  <p class="hint" style="margin-top:0">En fonction de vos réponses, vous recevrez votre devis par e-mail. Un technicien pourra vous contacter pour demander des précisions ou vous faire réaliser un test à distance avant l’envoi du devis.</p>
+  <main>
+  <p class="hint hint-no-margin">En fonction de vos réponses, vous recevrez votre devis par e-mail. Un technicien pourra vous contacter pour demander des précisions ou vous faire réaliser un test à distance avant l'envoi du devis.</p>
 
   <form id="formDevis" action="https://formsubmit.co/lumiere.gouttedeau@outlook.fr" method="POST" enctype="multipart/form-data" autocomplete="on">
     <!-- FormSubmit -->
-    <input type="hidden" name="_cc" value="maxime.catala@hotmail.com">
-    <input type="hidden" name="_subject" value="Nouvelle demande – Allo Mon Cumulus">
+    <!-- <input type="hidden" name="_cc" value=""> -->
+    <input type="hidden" name="_subject" id="emailSubject" value="Nouvelle demande – Allo Mon Cumulus">
     <input type="hidden" name="_template" value="table">
     <input type="hidden" name="_captcha" value="true">
     <input type="hidden" name="_next" value="https://lgemontpellier.fr/remerciements.html">
     <input type="hidden" name="_url" value="https://lgemontpellier.fr/Questionnaire_AlloMonCumulus_v7l_offre_promo.html">
-    <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+    <input type="text" name="_honey" class="hidden" tabindex="-1" autocomplete="off">
     <!-- Security: Rate limiting and submission throttling -->
     <input type="hidden" name="_form_timestamp" id="formTimestamp" value="">
     <!-- champs filet de sécurité CP -->
@@ -73,7 +75,7 @@
     <input type="hidden" name="cp_saisi" id="cp_saisi" value="">
 
     <!-- Infos -->
-    <label for="profilSelect">Vous êtes</label>
+    <label for="profilSelect">Vous êtes *</label>
     <div class="inline-group">
       <select name="profil" id="profilSelect" required>
         <option value="">Choisir…</option>
@@ -82,28 +84,28 @@
         <option>Locataire</option>
         <option>Gestionnaire</option>
       </select>
-      <input type="text" id="profilDetail" name="profil_detail" placeholder="Nom du gestionnaire" style="display:none">
+      <input type="text" id="profilDetail" name="profil_detail" placeholder="Nom du gestionnaire" class="hidden">
     </div>
 
     <div id="locataireFields" style="display:none">
-      <label for="telephone_locataire">Téléphone du locataire</label>
-      <input type="tel" name="telephone_locataire" id="telephone_locataire">
-      
       <label for="nom_locataire">Nom du locataire</label>
       <input type="text" name="nom_locataire" id="nom_locataire">
+
+      <label for="telephone_locataire">Téléphone du locataire</label>
+      <input type="tel" name="telephone_locataire" id="telephone_locataire">
     </div>
      
-    <label for="nom">Nom à faire apparaître sur le devis</label><input name="nom" id="nom" required>
-    <label for="prenom">Prénom</label><input name="prenom" id="prenom" required>
-    <label for="telephone">Téléphone</label><input name="telephone" id="telephone" required>
-    <label for="adresse">Rue / Adresse</label><input name="adresse" id="adresse" placeholder="n° et nom de rue" required>
+    <label for="nom">Nom à faire apparaître sur le devis (y compris Societé ou SCI) *</label><input name="nom" id="nom" required>
+    <label for="prenom">Prénom *</label><input name="prenom" id="prenom" required>
+    <label for="telephone">Téléphone *</label><input type="tel" name="telephone" id="telephone" required>
+    <label for="adresse">Adresse d'intervention *</label><input name="adresse" id="adresse" placeholder="n° et nom de rue" required>
 
-    <label for="cp">Code postal</label>
+    <label for="cp">Code postal *</label>
     <input name="code_postal" id="cp" pattern="[0-9]{5}" placeholder="ex : 34000" required>
     <div id="cpAlert" class="alert">
-      Votre commune n’est pas prise en charge. Elle se situe en dehors de notre zone d’intervention (≈ 30 km de Montpellier).
+      Votre commune n'est pas prise en charge. Elle se situe en dehors de notre zone d'intervention (≈ 30 km de Montpellier).
       <div id="cpOverrideBox" style="margin-top:8px; display:none;">
-        <label for="cpOverride" style="font-weight:600; display:flex; gap:8px; align-items:center;">
+        <label for="cpOverride" class="flex-row" style="font-weight:600;">
           <input type="checkbox" id="cpOverride">
           Je pense être dans la zone d'intervention ou dans une commune très proche du rayon. Envoyer ma demande.
         </label>
@@ -111,26 +113,27 @@
       </div>
     </div>
 
-    <label for="ville">Ville</label><input name="ville" id="ville" required>
+    <label for="ville">Ville *</label><input name="ville" id="ville" required>
 
-    <label for="_replyto">Adresse e-mail</label><input type="email" name="_replyto" id="_replyto" placeholder="votre.email@exemple.com" required>
+    <label for="email">Adresse e-mail *</label><input type="email" name="email" id="email" placeholder="votre.email@exemple.com" required autocomplete="on">
+    <input type="hidden" name="_replyto" value="email">
 
     <fieldset>
-      <legend>Informations fiscales</legend>
-      <label for="logement_plus_2_ans_oui">Logement achevé depuis plus de 2 ans ?</label>
-      <div class="inline-group">
-        <label for="logement_plus_2_ans_oui" style="font-weight:500"><input type="radio" name="logement_plus_2_ans" id="logement_plus_2_ans_oui" value="Oui" required> Oui</label>
-        <label for="logement_plus_2_ans_non" style="font-weight:500"><input type="radio" name="logement_plus_2_ans" id="logement_plus_2_ans_non" value="Non"> Non</label>
-        <label for="logement_plus_2_ans_nd" style="font-weight:500"><input type="radio" name="logement_plus_2_ans" id="logement_plus_2_ans_nd" value="Je ne sais pas"> Je ne sais pas</label>
+      <legend>TVA réduite</legend>
+      <label for="logement_plus_2_ans_oui">Logement achevé depuis plus de 2 ans ? *</label>
+      <div class="inline-group logement">
+        <label for="logement_plus_2_ans_oui" class="label-medium"><input type="radio" name="logement_plus_2_ans" id="logement_plus_2_ans_oui" value="Oui" required> Oui</label>
+        <label for="logement_plus_2_ans_non" class="label-medium"><input type="radio" name="logement_plus_2_ans" id="logement_plus_2_ans_non" value="Non"> Non</label>
+        <label for="logement_plus_2_ans_nd" class="label-medium"><input type="radio" name="logement_plus_2_ans" id="logement_plus_2_ans_nd" value="Je ne sais pas"> Je ne sais pas</label>
       </div>
     </fieldset>
 
-    <label for="zone_pietonne">Zone piétonne</label>
+    <label for="zone_pietonne">Zone piétonne *</label>
     <select name="zone_pietonne" id="zone_pietonne" required>
       <option value="">Choisir…</option><option>Oui</option><option>Non</option>
     </select>
 
-    <label for="etageSelect">Étage</label>
+    <label for="etageSelect">Étage *</label>
     <select name="etage" id="etageSelect" required>
       <option value="">Choisir…</option>
       <option>Rez-de-chaussée</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>Autres</option>
@@ -138,26 +141,26 @@
 
     <fieldset id="ascenseurField" style="display:none">
       <legend>Y a-t-il un ascenseur ?</legend>
-      <label for="ascenseur_oui" style="font-weight:500"><input type="radio" name="ascenseur" id="ascenseur_oui" value="Oui"> Oui</label>
-      <label for="ascenseur_non" style="font-weight:500"><input type="radio" name="ascenseur" id="ascenseur_non" value="Non"> Non</label>
+      <label for="ascenseur_oui" class="label-medium"><input type="radio" name="ascenseur" id="ascenseur_oui" value="Oui"> Oui</label>
+      <label for="ascenseur_non" class="label-medium"><input type="radio" name="ascenseur" id="ascenseur_non" value="Non"> Non</label>
       <div class="hint">Affiché uniquement si le logement est à l’étage.</div>
     </fieldset>
 
     <fieldset id="implantationSet">
-      <legend>Implantation du ballon</legend>
-      <label for="implantation_mur" style="font-weight:500"><input type="radio" name="implantation" id="implantation_mur" value="Suspendu au mur" required> Suspendu au mur</label>
-      <label for="implantation_sol" style="font-weight:500"><input type="radio" name="implantation" id="implantation_sol" value="Posé au sol"> Posé au sol</label>
-      <label for="implantation_trepied" style="font-weight:500"><input type="radio" name="implantation" id="implantation_trepied" value="Posé au sol sur trépied"> Posé au sol sur trépied</label>
-      <label for="implantation_nd" style="font-weight:500"><input type="radio" name="implantation" id="implantation_nd" value="Je ne sais pas"> Je ne sais pas</label>
+      <legend>Implantation du ballon *</legend>
+      <label for="implantation_mur" class="label-medium"><input type="radio" name="implantation" id="implantation_mur" value="Suspendu au mur" required> Suspendu au mur</label>
+      <label for="implantation_sol" class="label-medium"><input type="radio" name="implantation" id="implantation_sol" value="Posé au sol"> Posé au sol</label>
+      <label for="implantation_trepied" class="label-medium"><input type="radio" name="implantation" id="implantation_trepied" value="Posé au sol sur trépied"> Posé au sol sur trépied</label>
+      <label for="implantation_nd" class="label-medium"><input type="radio" name="implantation" id="implantation_nd" value="Je ne sais pas"> Je ne sais pas</label>
     </fieldset>
 
     <fieldset id="orientationField" style="display:none">
-      <legend>Le ballon est fixé :</legend>
-      <label for="orientation_vertical" style="font-weight:500"><input type="radio" name="orientation_fixation" id="orientation_vertical" value="Verticalement"> Verticalement</label>
-      <label for="orientation_horizontal" style="font-weight:500"><input type="radio" name="orientation_fixation" id="orientation_horizontal" value="Horizontalement"> Horizontalement</label>
+      <legend>Le ballon est fixé : *</legend>
+      <label for="orientation_vertical" class="label-medium"><input type="radio" name="orientation_fixation" id="orientation_vertical" value="Verticalement"> Verticalement</label>
+      <label for="orientation_horizontal" class="label-medium"><input type="radio" name="orientation_fixation" id="orientation_horizontal" value="Horizontalement"> Horizontalement</label>
     </fieldset>
 
-    <label for="capacite">Capacité du ballon (en litres)</label>
+    <label for="capacite">Capacité du ballon (en litres) *</label>
     <select name="capacite" id="capacite" required>
       <option value="">Choisir…</option>
       <option>50 L</option><option>75 L</option><option>100 L</option>
@@ -167,22 +170,22 @@
     <div id="autreCapacite" style="display:none;margin-top:6px"><input name="capacite_autre" placeholder="Indiquez la capacité"></div>
 
     <fieldset>
-      <legend>Format du ballon</legend>
-      <label for="format_cylindrique" style="font-weight:500"><input type="radio" name="format_ballon" id="format_cylindrique" value="Cylindrique" required> Cylindrique</label>
-      <label for="format_plat" style="font-weight:500"><input type="radio" name="format_ballon" id="format_plat" value="Plat"> Plat</label>
-      <label for="format_nd" style="font-weight:500"><input type="radio" name="format_ballon" id="format_nd" value="Je ne sais pas"> Je ne sais pas</label>
+      <legend>Format du ballon *</legend>
+      <label for="format_cylindrique" class="label-medium"><input type="radio" name="format_ballon" id="format_cylindrique" value="Cylindrique" required> Cylindrique</label>
+      <label for="format_plat" class="label-medium"><input type="radio" name="format_ballon" id="format_plat" value="Plat"> Plat</label>
+      <label for="format_nd" class="label-medium"><input type="radio" name="format_ballon" id="format_nd" value="Je ne sais pas"> Je ne sais pas</label>
     </fieldset>
 
     <fieldset>
       <legend>Mon cumulus…</legend>
-      <label for="pb_fuite" style="font-weight:500"><input type="checkbox" name="pb_fuite" id="pb_fuite" value="Fuit"> Fuit</label>
-      <label for="pb_disjoncte" style="font-weight:500"><input type="checkbox" name="pb_disjoncte" id="pb_disjoncte" value="Fait disjoncter"> Fait disjoncter</label>
-      <label for="pb_chauffeplus" style="font-weight:500"><input type="checkbox" name="pb_chauffeplus" id="pb_chauffeplus" value="Ne chauffe plus"> Ne chauffe plus</label>
-      <label for="pb_autre" style="font-weight:500"><input type="checkbox" name="pb_autre" id="pb_autre" value="Autre"> Autre</label>
+      <label for="pb_fuite" class="label-medium"><input type="checkbox" name="pb_fuite" id="pb_fuite" value="Fuit"> Fuit</label>
+      <label for="pb_disjoncte" class="label-medium"><input type="checkbox" name="pb_disjoncte" id="pb_disjoncte" value="Fait disjoncter"> Fait disjoncter</label>
+      <label for="pb_chauffeplus" class="label-medium"><input type="checkbox" name="pb_chauffeplus" id="pb_chauffeplus" value="Ne chauffe plus"> Ne chauffe plus</label>
+      <label for="pb_autre" class="label-medium"><input type="checkbox" name="pb_autre" id="pb_autre" value="Autre"> Autre</label>
       <div class="hint">Vous pouvez cocher plusieurs réponses.</div>
     </fieldset>
 
-    <p class="hint" style="background:#f4f7ff;border:1px dashed #cfe0ff;padding:10px;border-radius:10px">
+    <p class="hint hint-box">
       Pouvez-vous m'envoyer les photos de la vue d'ensemble de votre installation, de la plaque signalétique, et de votre tableau électrique
       afin que je puisse établir un devis précis ?
     </p>
@@ -190,7 +193,14 @@
     <!-- Photo 1 -->
     <label for="photo1">📷 Photo 1 — Vue d'ensemble de l'installation</label>
     <div class="example-inline">
-      <input type="file" name="photo1" id="photo1" accept="image/*">
+      <div class="file-upload-item">
+        <div class="custom-file-wrapper">
+          <label for="photo1" class="custom-file-label">Choisir un fichier</label>
+          <input type="file" name="photo1" id="photo1" accept="image/*;capture=camera">
+          <div class="custom-file-name" id="file-name-photo1"></div>
+        </div>
+        <div class="file-preview" id="preview_photo1"></div>
+      </div>
       <img src="images/chaudiere.png" alt="Chaudière">
     </div>
     <div class="hint">J'ai besoin de voir le ballon dans son environnement : est-il dans un placard, suspendu, difficile d’accès ? Vous pouvez aussi donner des précisions par écrit.</div>
@@ -200,7 +210,14 @@
     <!-- Photo 2 -->
     <label for="photo2">📷 Photo 2 — Plaque signalétique du chauffe-eau</label>
     <div class="example-inline">
-      <input type="file" name="photo2" id="photo2" accept="image/*">
+      <div class="file-upload-item">
+        <div class="custom-file-wrapper">
+          <label for="photo2" class="custom-file-label">Choisir un fichier</label>
+          <input type="file" name="photo2" id="photo2" accept="image/*;capture=camera">
+          <div class="custom-file-name" id="file-name-photo2"></div>
+        </div>
+        <div class="file-preview" id="preview_photo2"></div>
+      </div>
       <img src="images/plaque.png" alt="Exemple plaque">
     </div>
     <div class="hint">La plaque signalétique est une étiquette située le plus souvent sur le dessous ou sur le côté du ballon. Essayez de faire une photo lisible.</div>
@@ -208,46 +225,47 @@
     <!-- Photo 3 -->
     <label for="photo3">📷 Photo 3 — Tableau électrique</label>
     <div class="example-inline">
-      <input type="file" name="photo3" id="photo3" accept="image/*">
+      <div class="file-upload-item">
+        <div class="custom-file-wrapper">
+          <label for="photo3" class="custom-file-label">Choisir un fichier</label>
+          <input type="file" name="photo3" id="photo3" accept="image/*;capture=camera">
+          <div class="custom-file-name" id="file-name-photo3"></div>
+        </div>
+        <div class="file-preview" id="preview_photo3"></div>
+      </div>
       <img src="images/compteur.png" alt="Exemple tableau électrique">
     </div>
-<p class="hint" style="background:#f4f7ff;border:1px dashed #cfe0ff;padding:10px;border-radius:10px;margin-top:10px">
-  Merci pour votre patience, votre demande de devis est prête à être validée.
-  J’ai une dernière question pour vous envoyer votre devis, sans engagement.
-</p>
+    <p class="hint hint-box" style="margin-top:10px">
+      Merci pour votre patience, votre demande de devis est prête à être validée.
+      J'ai une dernière question pour vous envoyer votre devis, sans engagement.
+    </p>
 
-<label for="type_modele_economique">Souhaitez-vous&nbsp;:</label>
-<div class="inline-group" style="flex-wrap:wrap">
-  <label for="type_modele_economique" style="font-weight:500"><input type="radio" name="type_modele" id="type_modele_economique" value="Economique – modèle blindé (résistance dans l'eau)" required> Économique – modèle blindé (résistance dans l'eau)</label>
-  <label for="type_modele_durable" style="font-weight:500"><input type="radio" name="type_modele" id="type_modele_durable" value="Durable – modèle stéatite (résistance non plongée)"> Durable – modèle stéatite (résistance non plongée)</label>
-</div>
-<fieldset style="background:#f8fbff">
+    <label for="type_modele_economique">Souhaitez-vous&nbsp;: *</label>
+    <div class="inline-group flex-wrap">
+      <label for="type_modele_economique" class="label-medium"><input type="radio" name="type_modele" id="type_modele_economique" value="Economique – modèle blindé (résistance dans l'eau)" required> Économique – modèle blindé (résistance dans l'eau)</label>
+      <label for="type_modele_durable" class="label-medium"><input type="radio" name="type_modele" id="type_modele_durable" value="Durable – modèle stéatite (résistance non plongée)"> Durable – modèle stéatite (résistance non plongée)</label>
+    </div>
+    <fieldset style="background:#f8fbff">
       <legend>Offre promotionnelle en option</legend>
-      <label for="optDetecteur" class="inline-group" style="font-weight:500">
+      <label for="optDetecteur" class="inline-group label-medium">
         <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="5" fill="#eaf2ff" stroke="#2a78ff"/><circle cx="12" cy="8" r="2.2" fill="#2a78ff"/><path d="M5 14c0 3.866 3.134 7 7 7s7-3.134 7-7" fill="none" stroke="#2a78ff" stroke-width="1.6"/></svg>
         <input type="checkbox" id="optDetecteur" name="option_detecteur_fumee" value="Oui – détecteur de fumée 50€ HT fourni/posé"> Ajouter un détecteur de fumée à 50€ HT (fourni + posé)
       </label>
       <div class="hint">Offre du moment, valable avec le remplacement du ballon.</div>
     </fieldset>
 
-    <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:12px">
-      <button class="btn" type="submit">Envoyer ma demande de devis</button>
-      <button type="button" class="btn outline" id="callAstreinteBtn">📞 Contacter le technicien d’astreinte</button>
-    </div>
-    <div id="callMsg" class="hint" style="display:none;color:#b91c1c"></div>
-  </form>
-</main>
+    <label for="commentaires">Informations complémentaires que vous souhaitez nous communiquer</label>
+    <textarea name="commentaires" id="commentaires" rows="3"></textarea>
 
-<script src="js/questionnaire.js"></script>
-<script src="js/common.js"></script>
-<script>
-  // Initialisation du timestamp du formulaire
-  (function(){
-    const timestampField = document.getElementById('formTimestamp');
-    if (timestampField) {
-      timestampField.value = Date.now();
-    }
-  })();
-</script>
+    <div class="actions-row">
+      <button class="btn" type="submit">Envoyer ma demande de devis</button>
+      <button type="button" class="btn outline" id="callAstreinteBtn">📞 Contacter le technicien d'astreinte</button>
+    </div>
+    <div id="callMsg" class="hint hidden" style="color:#b91c1c"></div>
+  </form>
+  </main>
+
+  <script src="js/questionnaire.js"></script>
+  <script src="js/common.js"></script>
 </body>
 </html>

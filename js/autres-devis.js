@@ -58,6 +58,15 @@ window.CP_VILLES = {
     // Manage required state of sub options
     var subs = extra.querySelectorAll('input[name="elec_nature"]');
     subs.forEach(function(s){ s.required = elec; if (!elec) s.checked = false; });
+    // Mettre à jour le * dans la légende
+    var legend = extra.querySelector('legend');
+    if(legend){
+      if(elec && !legend.textContent.includes('*')){
+        legend.textContent = legend.textContent + ' *';
+      } else if(!elec && legend.textContent.includes('*')){
+        legend.textContent = legend.textContent.replace(/\s*\*\s*$/, '');
+      }
+    }
   }
   document.addEventListener('change', function(e){
     if (e.target && e.target.name === 'domaine') toggleElec();
@@ -77,6 +86,15 @@ window.CP_VILLES = {
     extra.style.display = isPlomb ? 'block' : 'none';
     var subs = extra.querySelectorAll('input[name="plomb_categorie"]');
     subs.forEach(function(s){ s.required = isPlomb; if (!isPlomb) s.checked = false; });
+    // Mettre à jour le * dans la légende
+    var legend = extra.querySelector('legend');
+    if(legend){
+      if(isPlomb && !legend.textContent.includes('*')){
+        legend.textContent = legend.textContent + ' *';
+      } else if(!isPlomb && legend.textContent.includes('*')){
+        legend.textContent = legend.textContent.replace(/\s*\*\s*$/, '');
+      }
+    }
   }
   document.addEventListener('change', function(e){
     if (e.target && e.target.name === 'domaine') togglePlomb();
@@ -113,6 +131,15 @@ window.CP_VILLES = {
     if (!b) return;
     var subs = b.querySelectorAll('input[name="'+inputName+'"]');
     subs.forEach(function(s){ s.required = on; if (!on) s.checked = false; });
+    // Mettre à jour le * dans la légende
+    var legend = b.querySelector('legend');
+    if(legend){
+      if(on && !legend.textContent.includes('*')){
+        legend.textContent = legend.textContent + ' *';
+      } else if(!on && legend.textContent.includes('*')){
+        legend.textContent = legend.textContent.replace(/\s*\*\s*$/, '');
+      }
+    }
   }
   function show(id, on){ var el = document.getElementById(id); if (el) el.style.display = on ? 'block' : 'none'; }
 
@@ -150,10 +177,4 @@ window.CP_VILLES = {
   syncPlombDetails();
 })();
 
-// Gestionnaire -> champ détail
-(function(){
-  const sel = document.getElementById('profilSelect');
-  const det = document.getElementById('profilDetail');
-  function t(){ det.style.display = (sel && sel.value==='Gestionnaire') ? 'block' : 'none'; }
-  if(sel){ sel.addEventListener('change', t); t(); }
-})();
+// Gestionnaire -> champ détail (géré dans common.js)

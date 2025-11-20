@@ -26,17 +26,18 @@ window.CP_VILLES = {
     if(!etageSel||!ascField) return;
     const isRdc = /Rez/.test(etageSel.value);
     ascField.style.display = isRdc ? 'none' : 'block';
-    ascField.querySelectorAll('input[name="ascenseur"]').forEach((inp)=> inp.required = !isRdc);
+    const isRequired = !isRdc;
+    // Mettre à jour le * dans la légende
+    const legend = ascField.querySelector('legend');
+    if(legend){
+      if(isRequired && !legend.textContent.includes('*')){
+        legend.textContent = legend.textContent + ' *';
+      } else if(!isRequired && legend.textContent.includes('*')){
+        legend.textContent = legend.textContent.replace(/\s*\*\s*$/, '');
+      }
+    }
   }
   if(etageSel){ etageSel.addEventListener('change', toggle); toggle(); }
-})();
-
-// Gestionnaire -> champ détail
-(function(){
-  const sel = document.getElementById('profilSelect');
-  const det = document.getElementById('profilDetail');
-  function t(){ det.style.display = (sel && sel.value==='Gestionnaire') ? 'block' : 'none'; }
-  if(sel){ sel.addEventListener('change', t); t(); }
 })();
 
 // Capacité -> champ "Autre"
@@ -60,9 +61,19 @@ window.CP_VILLES = {
     if(isSuspendu()){
       orient.style.display='block';
       orient.querySelectorAll('input[type="radio"]').forEach(inp=> inp.required = true);
+      // Ajouter * à la légende
+      const legend = orient.querySelector('legend');
+      if(legend && !legend.textContent.includes('*')){
+        legend.textContent = legend.textContent + ' *';
+      }
     } else {
       orient.style.display='none';
       orient.querySelectorAll('input[type="radio"]').forEach(inp=>{inp.required=false; inp.checked=false;});
+      // Retirer * de la légende
+      const legend = orient.querySelector('legend');
+      if(legend && legend.textContent.includes('*')){
+        legend.textContent = legend.textContent.replace(/\s*\*\s*$/, '');
+      }
     }
   }
   radios.forEach(r=> r.addEventListener('change', toggleOrientation));
@@ -135,5 +146,6 @@ window.CP_VILLES = {
     }, true);
   }
 })();
+
 
 
